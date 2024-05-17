@@ -1,25 +1,20 @@
-'use client'
 
 import Image from "next/image";
-import { motion } from 'framer-motion'
-import Link from "next/link";
 import { FaHouse } from "react-icons/fa6";
-import logo from '../../assets/logo.svg'
+import logo from '../../../assets/logo.svg'
 import { BsPersonAdd } from "react-icons/bs";
 import { PiSignOutBold } from "react-icons/pi";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 
+import Logout from "./Logout";
 
-export const signout = () => {
-  console.log('signout')
-}
 
 
 const iconsData = [
   {
     icon: <FaHouse width={30} color="#FFA585 " />,
     title: 'Dashboard',
-    link: '/',
+    link: 'dashboard',
     iconAlt: "house"
   },
   {
@@ -39,14 +34,13 @@ const iconsData = [
     icon: <PiSignOutBold width={30} color="#FFA585 " />
     ,
     title: 'Signout',
-    link: 'login',
+    link: '/',
     iconAlt: "person",
-    action: signout
+    action: true
   }
 ]
 
 export default function Aside() {
-
 
   return (
 
@@ -56,17 +50,10 @@ export default function Aside() {
 
       <div className="flex flex-col h-[90%] mt-8">
         {iconsData.map((item, i) => {
-          return (
-            <motion.div
-              key={item.title}
-              className={` ${i === 1 && 'flex-1'}`}
-            >
 
-              <Link href={`/${item.link.toLowerCase()}`} className=" text-[#5d5d6d] font-semibold mb-2 flex gap-4 items-center" >
-                {item.icon}
-                <span>{item.title}</span>
-              </Link>
-            </motion.div>)
+          return (
+            <Logout key={i} index={i} icon={item.icon} link={item.link} title={item.title} action={item.action} />
+          )
         })}
       </div>
     </aside >

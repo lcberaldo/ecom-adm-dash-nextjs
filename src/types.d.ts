@@ -3,17 +3,20 @@ export type Todo = {
   title: string
 }
 
-export type Post = {
+export type Product = {
   id: number,
   title: string,
-  content: string,
+  description: string,
   image_url: string,
+  price_in_cents: number,
+  category: string
+
 }
 
 export type User = {
-  username: string,
-  pass: string,
   id: number,
+  username: string,
+  password: string,
   email: string,
   name: string
 }

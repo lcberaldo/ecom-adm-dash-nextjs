@@ -13,14 +13,16 @@ model User {
   username String @unique
   email    String @unique
   name     String
-  pass     String
+  password String
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
-  image_url   String
-  title       String
-  description String
+  id             Int    @id @default(autoincrement())
+  image_url      String
+  title          String
+  description    String
+  price_in_cents Int
+  category       String
 }
 
 datasource db {

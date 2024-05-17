@@ -7,22 +7,23 @@ import Image from "next/image";
 import logo from '../../assets/logo.svg'
 
 
-export default function Home() {
+export default function Login() {
+
+
   const [isError, setIsError] = useState('')
 
   async function handleSignIn(e: FormData) {
     const res = await loginAction(e)
 
-    if (res.message) {
-      setIsError(res.message)
-    }
+
+    // if (res.message) {
+    //   setIsError(res.message)
+    // }
   }
 
   return (
     <div >
       <Container className="flex items-center flex-col justify-center h-[90vh]">
-
-
 
         <form action={handleSignIn} className="w-[45%] h-[60%] flex flex-col items-center justify-center p-8 px-20 border-2 border-[#5D5D6D] rounded-xl">
           <Link href='/' className="mb-8">
@@ -37,9 +38,7 @@ export default function Home() {
           <p className="text-xs text-[#41414d] mt-2 text-center">{isError ? isError : <br />}</p>
 
           <span className="flex w-full justify-center gap-3 items-center mt-4">
-            <input className="w-40 border-2 border-[#ffa585]  text-white text-center  text-sm bg-[#FFA585] rounded py-2 px-4 font-bold uppercase" type="submit" value="Login" />
-
-
+            <input className="w-40 cursor-pointer border-2 border-[#ffa585]  text-white text-center  text-sm bg-[#FFA585] rounded py-2 px-4 font-bold uppercase" type="submit" value="Login" />
           </span>
         </form>
       </Container>

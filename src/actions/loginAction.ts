@@ -13,6 +13,8 @@ export async function loginAction(formdata: FormData) {
   const username = formdata.get('user') as string
   const password = formdata.get('pass') as string
 
+
+
   //find a user
   const user = await prisma.user.findFirst({
     where: {
@@ -25,7 +27,7 @@ export async function loginAction(formdata: FormData) {
   }
 
   //passwords compare
-  const isSamePass = bcrypt.compareSync(password, user.pass);
+  const isSamePass = bcrypt.compareSync(password, user.password);
 
   if (!isSamePass) {
     return ({ message: "Incorrect Password" })

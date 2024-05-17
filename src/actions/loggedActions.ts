@@ -1,7 +1,21 @@
-import { Post } from "@/types";
+'use server'
+
+import { cookies } from "next/headers"
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient();
+
+
+export async function SignoutAction() {
+
+  cookies().delete("Authorization")
+
+  const cookie = cookies().getAll('Authorization')
+
+  return cookie
+
+}
+
 
 export async function getUserInfoAction(userId: number) {
 
@@ -21,16 +35,3 @@ export async function getUserInfoAction(userId: number) {
   return ({ message: 'teste' })
 }
 
-
-export async function getAllUserPosts(userId: number) {
-
-  const userPosts: Post[] = await prisma.post.findMany({
-    where: {
-      authorId: userId
-    }
-  })
-
-  if (userPosts) return userPosts
-
-  return []
-}

@@ -1,4 +1,4 @@
-import Aside from "../components/Aside";
+import Aside from "../components/Aside/Aside";
 
 export default function AuthLayout({
   children,
