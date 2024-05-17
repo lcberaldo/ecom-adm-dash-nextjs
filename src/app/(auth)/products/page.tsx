@@ -4,8 +4,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import placeholderImg from '@/assets/imgplaceholder.jpg'
+import { getAllProducts } from '@/actions/loggedActions'
 
-export default function Products() {
+export default async function Products() {
+
+  const products = await getAllProducts()
+
+  if (!products) return null
+
+
   return (
     <>
       <Header>
@@ -31,28 +38,30 @@ export default function Products() {
 
           <tbody >
 
+            {products.map(product => (
+              <tr key={product.id}>
+                <Link className='grid grid-cols-9 bg-white p-4 mb-[2px]' href={`/products/${product.id}/edit-product`}>
+                  <td className=''>
+                    <Image alt='' src={product.image_url || placeholderImg} width={60} height={70} />
+                  </td>
 
-            <tr >
-              <Link className='grid grid-cols-9 bg-white p-4 mb-[2px]' href={`/products/djhsakhdjh/edit-product`}>
-                <td className=''>
-                  <Image alt='' src={placeholderImg} width={60} height={70} />
-                </td>
+                  <td className='col-span-6 flex items-center font-semibold text-xl'>
+                    <span>{product.title}</span>
+                  </td>
 
-                <td className='col-span-6 flex items-center font-semibold text-xl'>
-                  <span>Titulo</span>
-                </td>
+                  <td className='flex items-center font-semibold'>
+                    <span>{product.price_in_cents}</span>
+                  </td>
 
-                <td className='flex items-center font-semibold'>
-                  <span>R$ 79,90</span>
-                </td>
+                  <td className='flex gap-2 items-center'>
+                    <button>Delete</button>
+                    <span>/</span>
+                    <button>Edit</button>
+                  </td>
+                </Link>
+              </tr>
+            ))}
 
-                <td className='flex gap-2 items-center'>
-                  <button>Delete</button>
-                  <span>/</span>
-                  <button>Edit</button>
-                </td>
-              </Link>
-            </tr>
           </tbody>
 
         </table>

@@ -1,11 +1,20 @@
-import React from 'react'
+import { getMembers } from '@/actions/loggedActions'
 import Header from '../components/Header'
 import Link from 'next/link'
-import Image from 'next/image'
 
-import placeholderImg from '@/assets/imgplaceholder.jpg'
+export default async function Members() {
+  const members = await getMembers()
 
-export default function Members() {
+
+  if (!members) return
+
+  const hasInactive = members.filter((member => member.status === 'inactive'))
+
+  console.log(hasInactive);
+
+
+
+
   return (
     <>
       <Header><h1>Members</h1></Header>
@@ -26,25 +35,39 @@ export default function Members() {
 
           <tbody >
 
+            {
+              members.map(member => {
+
+                if (member.status === 'inactive') return
+
+                return (
+                  <tr key={member.id}>
+                    <Link className='grid grid-cols-8 bg-white p-4 mb-[2px]' href={`/products/djhsakhdjh/edit-product`}>
+                      <td className='col-span-6 flex items-center font-semibold text-xl'>
+                        <span>{member.email}</span>
+                      </td>
+
+                      <td className='flex items-center font-semibold'>
+                        <span>{member.permission === 0 ? 'Owner' : 'User'}</span>
+                      </td>
+
+                      <td className='flex gap-2 items-center'>
+                        {member.permission === 1 &&
+                          <>
+                            <button>Delete</button>
+                            <span>/</span>
+                          </>
+                        }
+
+                        <button>Edit</button>
+                      </td>
+                    </Link>
+                  </tr>
+                )
+              })
+            }
 
 
-            <tr >
-              <Link className='grid grid-cols-8 bg-white p-4 mb-[2px]' href={`/products/djhsakhdjh/edit-product`}>
-                <td className='col-span-6 flex items-center font-semibold text-xl'>
-                  <span>lcberaldo@hotmail.com</span>
-                </td>
-
-                <td className='flex items-center font-semibold'>
-                  <span>Owner</span>
-                </td>
-
-                <td className='flex gap-2 items-center'>
-                  <button>Delete</button>
-                  <span>/</span>
-                  <button>Edit</button>
-                </td>
-              </Link>
-            </tr>
           </tbody>
 
         </table>
@@ -68,30 +91,32 @@ export default function Members() {
 
             <tbody >
 
-
-              <tr className=' bg-gray-200'>
+              {!hasInactive && (<tr className=' bg-gray-200'>
                 <td className=' p-4 rounded-bl rounded-br italic' >
                   <span>There are no pending invitation.</span>
                 </td>
-              </tr>
+              </tr>)}
 
-              {/* <tr >
-                <Link className='grid grid-cols-8 bg-white p-4 mb-[2px]' href={`/products/djhsakhdjh/edit-product`}>
-                  <td className='col-span-6 flex items-center font-semibold text-xl'>
-                    <span>lcberaldo@hotmail.com</span>
-                  </td>
+              {hasInactive.map(member => (
+                <tr key={member.id}>
+                  <Link className='grid grid-cols-8 bg-gray-200 italic p-4 mb-[2px]' href={`/member/${member.id}`}>
+                    <td className='col-span-6 flex items-center '>
+                      <span>{member.email}</span>
+                    </td>
 
-                  <td className='flex items-center font-semibold'>
-                    <span>Owner</span>
-                  </td>
+                    <td className='flex items-center '>
+                      <span>{member.permission === 0 ? 'Owner' : "User"}</span>
+                    </td>
 
-                  <td className='flex gap-2 items-center'>
-                  <button>Delete</button>
-                  <span>/</span>
-                  <button>Edit</button>
-                </td>
-                </Link>
-              </tr> */}
+                    <td className='flex gap-2 items-center'>
+                      <button>Delete</button>
+                      <span>/</span>
+                      <button>Edit</button>
+                    </td>
+                  </Link>
+                </tr>
+              ))}
+
             </tbody>
 
           </table>

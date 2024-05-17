@@ -4,9 +4,23 @@ import image from '@/assets/imgplaceholder.jpg'
 import Link from "next/link"
 import Image from "next/image"
 import backButton from '@/assets/back-icon.svg'
+import { getProductById } from "@/actions/loggedActions"
 
 
-export default async function EditProduct() {
+type paramsProps = {
+  params: {
+    id: string
+  }
+}
+
+export default async function EditProduct({ params }: paramsProps) {
+
+  const product = await getProductById(Number(params.id))
+
+  console.log(product);
+
+  if (!product) return null
+
 
   return (
 
@@ -22,16 +36,16 @@ export default async function EditProduct() {
         <div className='text-[#41414D]  max-w-md md:mt-0 mt-3 '>
 
           <form action="" className=" flex-col flex">
-            <input type="text" name="category" className='block mb-3 px-1 bg-transparent ' value={'teste'} />
+            <input type="text" name="category" className='block mb-3 px-1 bg-transparent ' value={product.category} />
 
-            <input type="text" name="title" className='text-3xl font-light mb-3 bg-transparent px-1' value={'produto 1'} />
+            <input type="text" name="title" className='text-3xl font-light mb-3 bg-transparent px-1' value={product.title} />
 
-            <input type="text" name="price" className='text-[#09090A] font-semibold mb-6 px-1 bg-transparent' value={'R$ 49,90'} />
+            <input type="text" name="price" className='text-[#09090A] font-semibold mb-6 px-1 bg-transparent' value={product.price_in_cents} />
 
 
             <span className='block uppercase font-medium text-[#737380] mb-2'>descrição</span>
 
-            <textarea name="description" rows={6} value={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, aspernatur nobis? Sapiente amet nihil dignissimos provident placeat, natus rem eum maxime itaque necessitatibus laborum ab, veritatis molestias ad eaque reprehenderit!'} className='text-[14px] min-w-[30vw] mb-4 md:mb-0 px-1 bg-transparent' />
+            <textarea name="description" rows={6} value={product.description} className='text-[14px] min-w-[30vw] mb-4 md:mb-0 px-1 bg-transparent' />
 
             <div className="mt-5 flex justify-between">
 

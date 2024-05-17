@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import { SignoutAction } from "@/actions/loggedActions";
+import { Signout } from "@/actions/loggedActions";
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
 
@@ -21,7 +21,7 @@ export default function Logout({ title, action, icon, link, index }: ButtonProps
   const router = useRouter()
 
   async function handleSignout() {
-    const cookier = await SignoutAction()
+    const cookier = await Signout()
 
     router.replace('/')
   }

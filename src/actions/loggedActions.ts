@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient();
 
 
-export async function SignoutAction() {
+export async function Signout() {
 
   cookies().delete("Authorization")
 
@@ -16,11 +16,7 @@ export async function SignoutAction() {
 
 }
 
-
-export async function getUserInfoAction(userId: number) {
-
-  console.log(userId)
-
+export async function getUserInfo(userId: number) {
   const userInfo = await prisma.user.findFirst({
     where: {
       id: userId
@@ -33,5 +29,43 @@ export async function getUserInfoAction(userId: number) {
   }
 
   return ({ message: 'teste' })
+}
+
+export async function getAllProducts() {
+  try {
+    const products = prisma.product.findMany()
+
+    return products
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+
+export async function getProductById(id: number) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        id
+      }
+    })
+
+    return product
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getMembers() {
+  try {
+    const members = await prisma.user.findMany()
+
+    return members
+  } catch (error) {
+    // return ({ message: 'no users' })
+
+    console.log(error);
+  }
 }
 

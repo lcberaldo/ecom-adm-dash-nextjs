@@ -29,7 +29,7 @@ export default function AsyncImage({ image_url, name }: AsyncImageProps) {
         width={340} height={260}
         src={image_url} alt={name}
         onError={() => setReveal(true)}
-        onLoadingComplete={() => setReveal(true)}
+        onLoad={() => setReveal(true)}
         style={{ visibility }}
       />
     </div>
