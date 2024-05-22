@@ -17,7 +17,7 @@ export default async function Members() {
 
   return (
     <>
-      <Header><h1>Members</h1></Header>
+      <Header>Members</Header>
 
       <div className='h-[90%]  p-16   text-[#5d5d6d]'>
 

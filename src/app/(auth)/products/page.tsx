@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import placeholderImg from '@/assets/imgplaceholder.jpg'
-import { getAllProducts } from '@/actions/loggedActions'
+import { deleteById, getAllProducts } from '@/actions/loggedActions'
+import DeleteButton from './components/DeleteButton'
 
 export default async function Products() {
 
@@ -12,12 +13,11 @@ export default async function Products() {
 
   if (!products) return null
 
-
   return (
     <>
       <Header>
-        <h1>Products</h1>
-      </Header>
+        Products
+      </Header >
 
       <div className='h-[90%]  p-16   text-[#5d5d6d]'>
         <div className='flex justify-between items-center pr-10 mb-4'>
@@ -38,29 +38,36 @@ export default async function Products() {
 
           <tbody >
 
-            {products.map(product => (
-              <tr key={product.id}>
-                <Link className='grid grid-cols-9 bg-white p-4 mb-[2px]' href={`/products/${product.id}/edit-product`}>
-                  <td className=''>
-                    <Image alt='' src={product.image_url || placeholderImg} width={60} height={70} />
-                  </td>
+            {products.map(product => {
+              const price = (product.price_in_cents / 100).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })
 
-                  <td className='col-span-6 flex items-center font-semibold text-xl'>
-                    <span>{product.title}</span>
-                  </td>
 
-                  <td className='flex items-center font-semibold'>
-                    <span>{product.price_in_cents}</span>
-                  </td>
 
-                  <td className='flex gap-2 items-center'>
-                    <button>Delete</button>
-                    <span>/</span>
-                    <button>Edit</button>
-                  </td>
-                </Link>
-              </tr>
-            ))}
+
+              return (
+                <tr key={product.id}>
+                  <div className='grid grid-cols-9 bg-white p-4 mb-[2px]' >
+                    <td className=''>
+                      <Image alt='' src={product.image_url || placeholderImg} width={60} height={70} />
+                    </td>
+
+                    <td className='col-span-6 flex items-center font-semibold text-xl'>
+                      <span>{product.title}</span>
+                    </td>
+
+                    <td className='flex items-center font-semibold'>
+                      <span>{price}</span>
+                    </td>
+
+                    <td className='flex gap-2 items-center'>
+                      <DeleteButton id={product.id} />
+                      <span>/</span>
+                      <Link href={`/products/${product.id}/edit-product`}>Edit</Link>
+                    </td>
+                  </div>
+                </tr>
+              )
+            })}
 
           </tbody>
 

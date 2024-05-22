@@ -17,21 +17,21 @@ export default async function EditProduct({ params }: paramsProps) {
 
   const product = await getProductById(Number(params.id))
 
-  console.log(product);
-
   if (!product) return null
+
+  const price = (product.price_in_cents / 100).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })
 
 
   return (
 
     <>
       <Header>
-        <h1>products / edit product</h1>
+        products / edit product
       </Header>
 
       <main className='md:flex gap-8 items-stretch p-16 '>
 
-        <AsyncImage image_url={image} name={'name'} />
+        <AsyncImage image_url={product.image_url || image} name={product.title} />
 
         <div className='text-[#41414D]  max-w-md md:mt-0 mt-3 '>
 
@@ -40,7 +40,7 @@ export default async function EditProduct({ params }: paramsProps) {
 
             <input type="text" name="title" className='text-3xl font-light mb-3 bg-transparent px-1' value={product.title} />
 
-            <input type="text" name="price" className='text-[#09090A] font-semibold mb-6 px-1 bg-transparent' value={product.price_in_cents} />
+            <input type="text" name="price" className='text-[#09090A] font-semibold mb-6 px-1 bg-transparent' value={price} />
 
 
             <span className='block uppercase font-medium text-[#737380] mb-2'>descrição</span>

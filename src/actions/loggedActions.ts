@@ -57,6 +57,28 @@ export async function getProductById(id: number) {
   }
 }
 
+export async function AddProductAction() {
+  console.log('oi do server');
+
+
+
+
+}
+
+export async function deleteById(id: number) {
+  try {
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id
+      }
+    })
+
+    return deletedProduct
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getMembers() {
   try {
     const members = await prisma.user.findMany()
