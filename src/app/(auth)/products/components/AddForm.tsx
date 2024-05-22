@@ -3,26 +3,53 @@
 import Image from "next/image"
 import backButton from '@/assets/back-icon.svg'
 import Link from "next/link"
-import { FormEvent } from "react"
+import { SyntheticEvent } from "react"
 import { AddProductAction } from "@/actions/loggedActions"
+import { useRouter } from "next/navigation"
 
 
 
 export default function AddForm() {
-  async function handleAddProduct(e: FormEvent) {
-    e.preventDefault()
-    await AddProductAction()
+  const router = useRouter()
 
+
+  async function handleSubmitForm(event: SyntheticEvent<HTMLFormElement, SubmitEvent>) {
+    event.preventDefault()
+
+    const form = event.currentTarget
+
+    const formElements = form.elements as typeof form.elements & {
+      title: HTMLInputElement,
+      image_url: HTMLInputElement,
+      description: HTMLInputElement
+      category: HTMLInputElement
+      price_in_cents: HTMLInputElement
+    }
+
+    const title = formElements.title.value
+    // const image_url = formElements.image_url.value
+    const description = formElements.description.value
+    const category = formElements.category.value
+    const price_in_cents = Number(formElements.price_in_cents.value)
+
+    const response = await AddProductAction({
+      title,
+      description,
+      category,
+      price_in_cents
+    })
+
+    router.replace('/products')
   }
 
 
   return (
-    <form onSubmit={handleAddProduct} className=" flex-col flex">
+    <form onSubmit={handleSubmitForm} className=" flex-col flex">
       <input type="text" name="category" className='block mb-3 px-1 rounded py-1 ' placeholder={'Category'} />
 
       <input type="text" name="title" className='text-3xl font-light mb-3 rounded py-1 px-1' placeholder={'Title'} />
 
-      <input type="text" name="price" className='text-[#09090A] font-semibold mb-6 px-1 rounded py-1' placeholder={'R$ 49,90'} />
+      <input type="text" name="price_in_cents" className='text-[#09090A] font-semibold mb-6 px-1 rounded py-1' placeholder={'R$ 49,90'} />
 
 
       <span className='block uppercase font-medium text-[#737380] mb-2'>description</span>

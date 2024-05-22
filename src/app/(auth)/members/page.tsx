@@ -24,16 +24,17 @@ export default async function Members() {
         <h1 className='text-xl font-bold pb-5'>Team members</h1>
 
 
-        <table className='w-full '>
-          <thead >
-            <tr className='grid grid-cols-8  bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
-              <td className='col-span-6'><strong>E-mail</strong></td>
-              <td><strong>Role</strong></td>
-              <td><strong>Action</strong></td>
-            </tr>
-          </thead>
 
-          <tbody >
+        <div className='w-full '>
+          <div >
+            <div className='grid grid-cols-8  bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
+              <div className='col-span-6'><strong>E-mail</strong></div>
+              <div><strong>Role</strong></div>
+              <div><strong>Action</strong></div>
+            </div>
+          </div>
+
+          <div >
 
             {
               members.map(member => {
@@ -41,17 +42,17 @@ export default async function Members() {
                 if (member.status === 'inactive') return
 
                 return (
-                  <tr key={member.id}>
+                  <div key={member.id}>
                     <Link className='grid grid-cols-8 bg-white p-4 mb-[2px]' href={`/products/djhsakhdjh/edit-product`}>
-                      <td className='col-span-6 flex items-center font-semibold text-xl'>
+                      <div className='col-span-6 flex items-center font-semibold text-xl'>
                         <span>{member.email}</span>
-                      </td>
+                      </div>
 
-                      <td className='flex items-center font-semibold'>
+                      <div className='flex items-center font-semibold'>
                         <span>{member.permission === 0 ? 'Owner' : 'User'}</span>
-                      </td>
+                      </div>
 
-                      <td className='flex gap-2 items-center'>
+                      <div className='flex gap-2 items-center'>
                         {member.permission === 1 &&
                           <>
                             <button>Delete</button>
@@ -60,17 +61,17 @@ export default async function Members() {
                         }
 
                         <button>Edit</button>
-                      </td>
+                      </div>
                     </Link>
-                  </tr>
+                  </div>
                 )
               })
             }
 
 
-          </tbody>
+          </div>
 
-        </table>
+        </div>
 
         <div>
           <div className='flex mt-14 mb-5' >
@@ -80,46 +81,46 @@ export default async function Members() {
 
           </div>
 
-          <table className='w-full '>
-            <thead >
-              <tr className='grid grid-cols-8  bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
-                <td className='col-span-6'><strong>E-mail</strong></td>
-                <td><strong>Role</strong></td>
-                <td><strong>Action</strong></td>
-              </tr>
-            </thead>
+          <div className='w-full '>
+            <div >
+              <div className='grid grid-cols-8  bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
+                <div className='col-span-6'><strong>E-mail</strong></div>
+                <div><strong>Role</strong></div>
+                <div><strong>Action</strong></div>
+              </div>
+            </div>
 
-            <tbody >
+            <div >
 
-              {!hasInactive && (<tr className=' bg-gray-200'>
-                <td className=' p-4 rounded-bl rounded-br italic' >
+              {!hasInactive && (<div className=' bg-gray-200'>
+                <div className=' p-4 rounded-bl rounded-br italic' >
                   <span>There are no pending invitation.</span>
-                </td>
-              </tr>)}
+                </div>
+              </div>)}
 
               {hasInactive.map(member => (
-                <tr key={member.id}>
+                <div key={member.id}>
                   <Link className='grid grid-cols-8 bg-gray-200 italic p-4 mb-[2px]' href={`/member/${member.id}`}>
-                    <td className='col-span-6 flex items-center '>
+                    <div className='col-span-6 flex items-center '>
                       <span>{member.email}</span>
-                    </td>
+                    </div>
 
-                    <td className='flex items-center '>
+                    <div className='flex items-center '>
                       <span>{member.permission === 0 ? 'Owner' : "User"}</span>
-                    </td>
+                    </div>
 
-                    <td className='flex gap-2 items-center'>
+                    <div className='flex gap-2 items-center'>
                       <button>Delete</button>
                       <span>/</span>
                       <button>Edit</button>
-                    </td>
+                    </div>
                   </Link>
-                </tr>
+                </div>
               ))}
 
-            </tbody>
+            </div>
 
-          </table>
+          </div>
         </div>
       </div >
     </>

@@ -4,10 +4,10 @@ export type Todo = {
 }
 
 export type Product = {
-  id: number,
+  // id: number,
   title: string,
   description: string,
-  image_url: string,
+  image_url?: string,
   price_in_cents: number,
   category: string
 

@@ -2,6 +2,9 @@
 
 import { cookies } from "next/headers"
 import { PrismaClient } from "@prisma/client"
+import { Product } from "@/types";
+
+
 
 const prisma = new PrismaClient();
 
@@ -57,10 +60,31 @@ export async function getProductById(id: number) {
   }
 }
 
-export async function AddProductAction() {
-  console.log('oi do server');
+export async function AddProductAction({
+  title,
+  description,
+  category,
+  price_in_cents
+}: Product) {
+
+  try {
 
 
+    const createdProduct = await prisma.product.create({
+      data: {
+        title,
+        image_url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Flojazeusdobrasil.com.br%2Fprodutos%2Fdetalhes%2Fcone-padrao-norma-nbr-15071-refletivo-flexivel-75cm-lar-bco%2F&psig=AOvVaw3-3-MwsF8PTVHmz9KwtFqr&ust=1716429260101000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKDNh7uUoIYDFQAAAAAdAAAAABAE',
+        description,
+        category,
+        price_in_cents
+      },
+    })
+    return { product: createdProduct }
+
+
+  } catch (error) {
+    return ({ message: 'something is wrong' })
+  }
 
 
 }

@@ -26,17 +26,17 @@ export default async function Products() {
         </div>
 
 
-        <table className='w-full '>
-          <thead >
-            <tr className='grid grid-cols-9   bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
-              <td className=''><strong>Thumb</strong></td>
-              <td className='col-span-6'><strong>Title</strong></td>
-              <td><strong>Price</strong></td>
-              <td><strong>Action</strong></td>
-            </tr>
-          </thead>
+        <div className='w-full '>
+          <div >
+            <div className='grid grid-cols-9   bg-[#eef1ef]  p-4 rounded-tr rounded-tl mb-[2px] '>
+              <h3 className=''><strong>Thumb</strong></h3>
+              <h3 className='col-span-6'><strong>Title</strong></h3>
+              <h3><strong>Price</strong></h3>
+              <h3><strong>Action</strong></h3>
+            </div>
+          </div>
 
-          <tbody >
+          <div >
 
             {products.map(product => {
               const price = (product.price_in_cents / 100).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })
@@ -45,33 +45,33 @@ export default async function Products() {
 
 
               return (
-                <tr key={product.id}>
+                <div key={product.id}>
                   <div className='grid grid-cols-9 bg-white p-4 mb-[2px]' >
-                    <td className=''>
+                    <div className=''>
                       <Image alt='' src={product.image_url || placeholderImg} width={60} height={70} />
-                    </td>
+                    </div>
 
-                    <td className='col-span-6 flex items-center font-semibold text-xl'>
+                    <div className='col-span-6 flex items-center font-semibold text-xl'>
                       <span>{product.title}</span>
-                    </td>
+                    </div>
 
-                    <td className='flex items-center font-semibold'>
+                    <div className='flex items-center font-semibold'>
                       <span>{price}</span>
-                    </td>
+                    </div>
 
-                    <td className='flex gap-2 items-center'>
+                    <div className='flex gap-2 items-center'>
                       <DeleteButton id={product.id} />
                       <span>/</span>
                       <Link href={`/products/${product.id}/edit-product`}>Edit</Link>
-                    </td>
+                    </div>
                   </div>
-                </tr>
+                </div>
               )
             })}
 
-          </tbody>
+          </div>
 
-        </table>
+        </div>
 
       </div >
     </>
