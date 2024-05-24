@@ -1,11 +1,12 @@
-import React from 'react'
 import Header from '../components/Header'
 import Link from 'next/link'
 import Image from 'next/image'
 
 import placeholderImg from '@/assets/imgplaceholder.jpg'
-import { deleteById, getAllProducts } from '@/actions/loggedActions'
+import { getAllProducts } from '@/actions/loggedActions'
 import DeleteButton from './components/DeleteButton'
+
+
 
 export default async function Products() {
 
@@ -41,6 +42,7 @@ export default async function Products() {
             {products.map(product => {
               const price = (product.price_in_cents / 100).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })
 
+              console.log(product.price_in_cents);
 
 
 

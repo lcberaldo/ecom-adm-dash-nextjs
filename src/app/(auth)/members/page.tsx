@@ -10,7 +10,6 @@ export default async function Members() {
 
   const hasInactive = members.filter((member => member.status === 'inactive'))
 
-  console.log(hasInactive);
 
 
 
